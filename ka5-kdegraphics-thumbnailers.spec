@@ -29,6 +29,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 These plugins allow KDE software to create thumbnails for several
 advanced graphic file formats (PS, RAW).
 
+%description -l pl.UTF-8
+Te wtyczki pozwalają oprogramowaniu KDE tworzyć miniaturki dla
+wielu zaawansowanych formatów graficznych (PS, RAW).
+
 %prep
 %setup -q -n %{kaname}-%{version}
 
