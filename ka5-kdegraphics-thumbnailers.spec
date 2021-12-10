@@ -1,15 +1,15 @@
-%define		kdeappsver	21.08.3
+%define		kdeappsver	21.12.0
 %define		kframever	5.56.0
 %define		qtver		5.9.0
 %define		kaname		kdegraphics-thumbnailers
 Summary:	KDE graphics thumbnailers
 Name:		ka5-%{kaname}
-Version:	21.08.3
+Version:	21.12.0
 Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	10e78758e9aebb0c6e96d44ec604f148
+# Source0-md5:	94e9e7852b1ced33e3f204f924f91205
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5Gui-devel
