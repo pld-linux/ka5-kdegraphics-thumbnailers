@@ -1,18 +1,18 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%define		kdeappsver	21.12.3
+%define		kdeappsver	22.04.0
 %define		kframever	5.56.0
 %define		qtver		5.9.0
 %define		kaname		kdegraphics-thumbnailers
 Summary:	KDE graphics thumbnailers
 Name:		ka5-%{kaname}
-Version:	21.12.3
+Version:	22.04.0
 Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	88d98a7bce5ed8e1d51884fa0be99a50
+# Source0-md5:	d12c520db477b9fc199204489d3cc968
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5Gui-devel
@@ -33,8 +33,8 @@ These plugins allow KDE software to create thumbnails for several
 advanced graphic file formats (PS, RAW).
 
 %description -l pl.UTF-8
-Te wtyczki pozwalają oprogramowaniu KDE tworzyć miniaturki dla
-wielu zaawansowanych formatów graficznych (PS, RAW).
+Te wtyczki pozwalają oprogramowaniu KDE tworzyć miniaturki dla wielu
+zaawansowanych formatów graficznych (PS, RAW).
 
 %prep
 %setup -q -n %{kaname}-%{version}
@@ -71,3 +71,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kservices5/gsthumbnail.desktop
 %{_datadir}/kservices5/rawthumbnail.desktop
 %{_datadir}/metainfo/org.kde.kdegraphics-thumbnailers.metainfo.xml
+%attr(755,root,root) %{_libdir}/qt5/plugins/mobithumbnail.so
+%{_datadir}/kservices5/mobithumbnail.desktop
