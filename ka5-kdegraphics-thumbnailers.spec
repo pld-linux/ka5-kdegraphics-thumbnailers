@@ -1,22 +1,22 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%define		kdeappsver	23.04.3
+%define		kdeappsver	23.08.0
 %define		kframever	5.103.0
 %define		qtver		5.15.2
 %define		kaname		kdegraphics-thumbnailers
 Summary:	KDE graphics thumbnailers
 Name:		ka5-%{kaname}
-Version:	23.04.3
+Version:	23.08.0
 Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	1158f9050e9208c37fa97ad74d6e4234
+# Source0-md5:	e2b68f0e1c079f2035d2935edd6eaaba
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5Gui-devel
-BuildRequires:	cmake >= 2.8.12
+BuildRequires:	cmake >= 3.20
 BuildRequires:	ka5-kdegraphics-mobipocket-devel >= %{kdeappsver}
 BuildRequires:	ka5-libkdcraw-devel >= %{kdeappsver}
 BuildRequires:	ka5-libkexiv2-devel >= %{kdeappsver}
@@ -41,18 +41,16 @@ zaawansowanych formatów graficznych (PS, RAW).
 %setup -q -n %{kaname}-%{version}
 
 %build
-install -d build
-cd build
 %cmake \
+	-B build \
 	-G Ninja \
 	%{!?with_tests:-DBUILD_TESTING=OFF} \
 	-DHTML_INSTALL_DIR=%{_kdedocdir} \
-	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-	..
-%ninja_build
+	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+%ninja_build -C build
 
 %if %{with tests}
-ctest
+ctest --test-dir build
 %endif
 
 
@@ -65,12 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/qt5/plugins/blenderthumbnail.so
-%attr(755,root,root) %{_libdir}/qt5/plugins/gsthumbnail.so
-%attr(755,root,root) %{_libdir}/qt5/plugins/rawthumbnail.so
-%{_datadir}/kservices5/blenderthumbnail.desktop
-%{_datadir}/kservices5/gsthumbnail.desktop
-%{_datadir}/kservices5/rawthumbnail.desktop
+%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/thumbcreator/blenderthumbnail.so
+%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/thumbcreator/gsthumbnail.so
+%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/thumbcreator/mobithumbnail.so
+%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/thumbcreator/rawthumbnail.so
 %{_datadir}/metainfo/org.kde.kdegraphics-thumbnailers.metainfo.xml
-%attr(755,root,root) %{_libdir}/qt5/plugins/mobithumbnail.so
-%{_datadir}/kservices5/mobithumbnail.desktop
