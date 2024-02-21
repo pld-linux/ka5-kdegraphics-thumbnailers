@@ -1,28 +1,28 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%define		kdeappsver	23.08.4
+%define		kdeappsver	24.01.95
 %define		kframever	5.103.0
 %define		qtver		5.15.2
 %define		kaname		kdegraphics-thumbnailers
 Summary:	KDE graphics thumbnailers
 Name:		ka5-%{kaname}
-Version:	23.08.4
-Release:	1
+Version:	24.01.95
+Release:	0.1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
-Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	7215b0b31eb2db24ec594c9d7576c0f8
+Source0:	https://download.kde.org/unstable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
+# Source0-md5:	b1bed825b3024af65426c2345f9de563
 URL:		http://www.kde.org/
-BuildRequires:	Qt5Core-devel >= %{qtver}
-BuildRequires:	Qt5Gui-devel
+BuildRequires:	Qt6Core-devel >= %{qtver}
+BuildRequires:	Qt6Gui-devel
 BuildRequires:	cmake >= 3.20
 BuildRequires:	ka5-kdegraphics-mobipocket-devel >= %{kdeappsver}
 BuildRequires:	ka5-libkdcraw-devel >= %{kdeappsver}
 BuildRequires:	ka5-libkexiv2-devel >= %{kdeappsver}
-BuildRequires:	kf5-kio-devel >= %{kframever}
+BuildRequires:	kf6-kio-devel >= %{kframever}
 BuildRequires:	ninja
-BuildRequires:	qt5-build >= %{qtver}
+BuildRequires:	qt6-build >= %{qtver}
 BuildRequires:	rpmbuild(macros) >= 1.164
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
@@ -46,7 +46,8 @@ zaawansowanych formatów graficznych (PS, RAW).
 	-G Ninja \
 	%{!?with_tests:-DBUILD_TESTING=OFF} \
 	-DHTML_INSTALL_DIR=%{_kdedocdir} \
-	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+	-DQT_MAJOR_VERSION=6
 %ninja_build -C build
 
 %if %{with tests}
@@ -63,8 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/thumbcreator/blenderthumbnail.so
-%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/thumbcreator/gsthumbnail.so
-%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/thumbcreator/mobithumbnail.so
-%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/thumbcreator/rawthumbnail.so
+%dir %{_libdir}/qt6/plugins/kf6/thumbcreator
+%attr(755,root,root) %{_libdir}/qt6/plugins/kf6/thumbcreator/blenderthumbnail.so
+%attr(755,root,root) %{_libdir}/qt6/plugins/kf6/thumbcreator/gsthumbnail.so
+%attr(755,root,root) %{_libdir}/qt6/plugins/kf6/thumbcreator/mobithumbnail.so
+%attr(755,root,root) %{_libdir}/qt6/plugins/kf6/thumbcreator/rawthumbnail.so
 %{_datadir}/metainfo/org.kde.kdegraphics-thumbnailers.metainfo.xml
